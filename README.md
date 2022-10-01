@@ -1,5 +1,5 @@
 # The Traveller
-An application that changes the background of a person using segmentaton mask.
+An application that changes the background of a person using segmentation mask.
 
 ## Description :scroll:
 ** TODO **
