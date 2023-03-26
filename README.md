@@ -2,7 +2,7 @@
 An application that changes the background of a person using segmentation mask.
 
 ## Description :scroll:
-** TODO **
+Generate a background image with diffusion model.
 
 ## General Requirements :mage_man:
 ** TODO **
