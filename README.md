@@ -1,5 +1,5 @@
 # [In Progress] The Traveller
-An application that changes the background of a person using segmentation mask.
+An application that changes the background of a person using a text prompt describing the background.
 
 ## Description :scroll:
 Generate a background image with diffusion model.
