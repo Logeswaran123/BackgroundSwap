@@ -2,7 +2,7 @@
 An application that changes the background of a person using a text prompt describing the background.
 
 ## Description :scroll:
-Generate a background of a person with a diffusion model.
+Generate the background of a person with a diffusion model.
 
 ## General Requirements :mage_man:
 ** TODO **
