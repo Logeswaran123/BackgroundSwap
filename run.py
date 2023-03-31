@@ -1,28 +1,30 @@
 import argparse
-import cv2
-from PIL import Image
-from ultralytics import YOLO
+
+from operations.segmentation import Mask
+from operations.image_generator import Background
 
 
-class Segmenter:
-    def __init__(self, model_path, source, **kwargs):
-        self.model_path = model_path
-        self.source = source
-        self.overrides = {}
-        self.overrides.update(kwargs)
+def argparser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-i', "--input", required=True,
+                                        help="Path to input images directory.", type=str)
+    parser.add_argument('-o', "--output", required=True,
+                                        help="Path to output images directory.", type=str)
+    parser.add_argument('-b', "--bg", required=False,
+                                        help="Path to background image file.", type=str)
+    parser.add_argument('-m', "--mediapipe", required=False, action='store_true', default=True,
+                                        help="Use Mediapipe if set to True, else use DeeplabV3 for mask generation.")
+    parser.add_argument('-p', "--prompt", required=False, # change to True
+                                        help="Text prompt to generate background.")
+    return parser
 
-    def predict(self):
-        model = YOLO(self.model_path)
-        results = model.predict(source=self.source, **self.overrides)
+
+def main():
+    args = argparser().parse_args()
+    background = Background(args.prompt, args.bg).get_background()
+    mask = Mask(args.input, args.output, background)
+    mask.perform_segmentation()
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-m', "--model", required=True, help="Path to model", type=str)
-    parser.add_argument('-s', "--source", required=False, default="0",
-                        help="Source directory for images or videos", type=str)
-    args = parser.parse_args()
-
-    kwargs = {'task': 'segment', 'retina_masks': True, 'classes': 0, 'save': "./"}
-    segmenter = Segmenter(args.model, args.source, **kwargs)
-    segmenter.predict()
+    main()
