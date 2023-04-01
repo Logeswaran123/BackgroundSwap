@@ -1,5 +1,12 @@
 import cv2
+from diffusers import StableDiffusionPipeline
+import numpy as np
+import torch
+from torch import autocast
 
+
+HEIGHT = 512
+WIDTH  = 512
 
 class Background():
     def __init__(self, prompt, bg_img_path) -> None:
@@ -18,7 +25,22 @@ class Background():
         return self._generate_image() if self.use_sd else self._get_image()
 
     def _generate_image(self):
-        pass
+        access_token = self._get_access_token()
+
+        model_id = "CompVis/stable-diffusion-v1-4"
+        pipe = StableDiffusionPipeline.from_pretrained(model_id, use_auth_token=access_token,
+                                                    torch_dtype=torch.float16, revision='fp16')
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        pipe = pipe.to(device)
+        print("\nModel loaded successfully")
+
+        with autocast("cuda"):
+            image = pipe(prompt=self.prompt, height=HEIGHT, width=WIDTH).images[0]
+
+        return np.array(image)
 
     def _get_image(self):
         return cv2.imread(self.bg_img_path)
+
+    def _get_access_token(self):
+        return input("\nEnter Hugging face user access token: ")
