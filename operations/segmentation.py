@@ -29,7 +29,7 @@ class Mediapipe():
 
             condition = np.stack((results.segmentation_mask,) * 3, axis=-1) > 0.1
 
-            bg_image = cv2.resize(self.background, image.shape[:2][::-1])
+            bg_image = cv2.GaussianBlur(cv2.resize(self.background, image.shape[:2][::-1]), (55, 55), 0)
 
             output_image = np.where(condition, image, bg_image)
             cv2.imwrite(self.output_dir + "/" + str(idx) + '.png', output_image)
