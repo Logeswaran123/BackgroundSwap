@@ -28,6 +28,7 @@ class Mediapipe():
             results = self.mp_selfie_segmentation.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
 
             condition = np.stack((results.segmentation_mask,) * 3, axis=-1) > 0.1
+            condition = cv2.GaussianBlur(np.array(condition, dtype=np.float32), (5, 5), 11)
 
             bg_image = cv2.GaussianBlur(cv2.resize(self.background, image.shape[:2][::-1]), (55, 55), 0)
 
