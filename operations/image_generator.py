@@ -32,8 +32,9 @@ class Background():
                                                     torch_dtype=torch.float16, revision='fp16')
         device = "cuda" if torch.cuda.is_available() else "cpu"
         pipe = pipe.to(device)
-        print("\nModel loaded successfully")
+        print("\nstable-diffusion-v1-4 model loaded successfully")
 
+        print(f"\nGenerating background image using prompt: {self.prompt}\n")
         with autocast("cuda"):
             image = pipe(prompt=self.prompt, height=HEIGHT, width=WIDTH).images[0]
 

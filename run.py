@@ -12,7 +12,7 @@ def argparser():
                                         help="Path to output images directory.", type=str)
     parser.add_argument('-b', "--bg", required=False,
                                         help="Path to background image file.", type=str)
-    parser.add_argument('-m', "--mediapipe", required=False, action='store_true', default=True,
+    parser.add_argument('-m', "--mediapipe", required=False, action='store_true', default=False,
                                         help="Use Mediapipe if set to True, else use DeeplabV3 for mask generation.")
     parser.add_argument('-p', "--prompt", required=False, # change to True
                                         help="Text prompt to generate background.")
@@ -22,7 +22,7 @@ def argparser():
 def main():
     args = argparser().parse_args()
     background = Background(args.prompt, args.bg).get_background()
-    mask = Mask(args.input, args.output, background)
+    mask = Mask(args.input, args.output, background, args.mediapipe)
     mask.perform_segmentation()
 
 
