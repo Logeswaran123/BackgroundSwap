@@ -1,10 +1,10 @@
 import cv2
-import mediapipe as mp
 import numpy as np
-import torch
-from torchvision import transforms
 
 from .utils import *
+
+
+YOLOV8_URL = "https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8x-seg.pt"
 
 
 class Mediapipe():
@@ -12,10 +12,15 @@ class Mediapipe():
         self.input_dir = input_dir
         self.output_dir = output_dir
         self.background = background
+        self.mp_drawing = None
+        self.mp_selfie_segmentation = None
+
+    def perform_segmentation(self, ):
+        import mediapipe as mp
+
         self.mp_drawing = mp.solutions.drawing_utils
         self.mp_selfie_segmentation = mp.solutions.selfie_segmentation.SelfieSegmentation(model_selection=0)
 
-    def perform_segmentation(self, ):
         print("\nPerforming segmentation using Mediapipe...\n")
         if not os.listdir(self.input_dir):
             return
@@ -39,14 +44,17 @@ class Mediapipe():
             cv2.imwrite(self.output_dir + "/" + str(idx) + '.png', output_image)
 
 
-class DeeplabV3():
+class Deeplabv3():
     def __init__(self, input_dir, output_dir, background) -> None:
         self.input_dir = input_dir
         self.output_dir = output_dir
         self.background = background
 
     def perform_segmentation(self, ):
-        print("\nPerforming segmentation using DeeplabV3...\n")
+        import torch
+        from torchvision import transforms
+
+        print("\nPerforming segmentation using Deeplabv3...\n")
         if not os.listdir(self.input_dir):
             return
         create_dir(self.output_dir)
@@ -80,10 +88,54 @@ class DeeplabV3():
             cv2.imwrite(self.output_dir + "/" + str(idx) + '.png', output_image)
 
 
+class YOLOv8():
+    def __init__(self, input_dir, output_dir, background) -> None:
+        self.input_dir = input_dir
+        self.output_dir = output_dir
+        self.background = background
+
+    def perform_segmentation(self, ):
+        from ultralytics import YOLO
+        from urllib import request
+
+        print("\nPerforming segmentation using Yolov8...\n")
+        create_dir(os.getcwd() + "/yolo-model")
+        request.urlretrieve(YOLOV8_URL, os.getcwd() + "/yolo-model/yolov8x-seg.pt")
+        model = YOLO('yolo-model/yolov8x-seg.pt')
+
+        for idx, file in enumerate(os.listdir(self.input_dir)):
+            file_path = self.input_dir + "/" + file
+            print(f"\nFile {idx + 1} : {file_path}")
+
+            image = cv2.imread(file_path)
+            image_height, image_width, _ = image.shape
+
+            output = model.predict(file_path)[0]
+            output = output.masks.masks[0]
+
+            output_array = output.cpu().numpy().astype(np.uint8) * 255
+            condition = cv2.resize(output_array, image.shape[:2][::-1])
+            condition = np.stack((condition,) * 3, axis=-1) > 0.1
+
+            condition = cv2.GaussianBlur(np.array(condition, dtype=np.float32), (5, 5), 11)
+
+            bg_image = cv2.GaussianBlur(cv2.resize(self.background, image.shape[:2][::-1]), (55, 55), 0)
+
+            output_image = np.where(condition, image, bg_image)
+            cv2.imwrite(self.output_dir + "/" + str(idx) + '.png', output_image)
+
+
 class Mask():
-    def __init__(self, input_dir, output_dir, background, use_mediapipe = True) -> None:
+    def __init__(self, input_dir, output_dir, background, mode = 0) -> None:
         kwargs = {"input_dir":input_dir, "output_dir":output_dir, "background":background}
-        self.instance = Mediapipe(**kwargs) if use_mediapipe else DeeplabV3(**kwargs)
+
+        modes = {
+            0: Mediapipe(**kwargs),
+            1: Deeplabv3(**kwargs),
+            2: YOLOv8(**kwargs),
+        }
+
+        self.instance = modes.get(mode)
 
     def perform_segmentation(self, ):
         self.instance.perform_segmentation()
