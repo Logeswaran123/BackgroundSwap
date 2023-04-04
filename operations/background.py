@@ -14,8 +14,8 @@ class Background():
         self.bg_img_path = bg_img_path
         self.use_sd = False
 
-        if bg_img_path == None:
-            if prompt != None:
+        if bg_img_path is None:
+            if prompt:
                 self.use_sd = True
             else:
                 print("Background image path (--bg) or text prompt (--prompt) must be provided.")
