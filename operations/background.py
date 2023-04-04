@@ -18,7 +18,7 @@ class Background():
             if prompt != None:
                 self.use_sd = True
             else:
-                print("Background image path (--bg) or text prompt must be provided (--prompt).")
+                print("Background image path (--bg) or text prompt (--prompt) must be provided.")
                 exit()
 
     def get_background(self):
