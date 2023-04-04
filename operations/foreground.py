@@ -125,7 +125,7 @@ class YOLOv8():
             cv2.imwrite(self.output_dir + "/" + str(idx) + '.png', output_image)
 
 
-class Mask():
+class Foreground():
     def __init__(self, input_dir, output_dir, background, mode = 0) -> None:
         kwargs = {"input_dir":input_dir, "output_dir":output_dir, "background":background}
 

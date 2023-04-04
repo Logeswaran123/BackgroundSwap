@@ -1,7 +1,7 @@
 import argparse
 
-from operations.segmentation import Mask
-from operations.image_generator import Background
+from operations.foreground import Foreground
+from operations.background import Background
 
 
 def argparser():
@@ -22,8 +22,8 @@ def argparser():
 def main():
     args = argparser().parse_args()
     background = Background(args.prompt, args.bg).get_background()
-    mask = Mask(args.input, args.output, background, args.mode)
-    mask.perform_segmentation()
+    foreground = Foreground(args.input, args.output, background, args.mode)
+    foreground.perform_segmentation()
 
 
 if __name__ == "__main__":
