@@ -30,7 +30,7 @@ class Background():
         model_id = "CompVis/stable-diffusion-v1-4"
         pipe = StableDiffusionPipeline.from_pretrained(model_id, use_auth_token=access_token,
                                                     torch_dtype=torch.float16, revision='fp16')
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         pipe = pipe.to(device)
         print("\nstable-diffusion-v1-4 model loaded successfully")
 
