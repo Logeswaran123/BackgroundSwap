@@ -39,7 +39,7 @@ class Background():
             image = pipe(prompt=self.prompt, height=HEIGHT, width=WIDTH).images[0]
         torch.cuda.empty_cache()
 
-        return np.array(image)
+        return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
 
     def _get_image(self):
         return cv2.imread(self.bg_img_path)
