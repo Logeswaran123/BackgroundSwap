@@ -84,5 +84,6 @@ class NeuralStyleTransfer():
                 print(f"iteration: {epoch}, total loss={total_loss.item():12.4f}")
 
         stylized_image = utils.postprocess_image(optimizing_img)
+        torch.cuda.empty_cache()
 
         return stylized_image

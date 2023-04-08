@@ -10,11 +10,12 @@ YOLOV8_URL = "https://github.com/ultralytics/assets/releases/download/v0.0.0/yol
 
 
 class Mediapipe():
-    def __init__(self, input_dir, output_dir, background, neural_style_transfer) -> None:
+    def __init__(self, input_dir, output_dir, background, neural_style_transfer, perform_blur) -> None:
         self.input_dir = input_dir
         self.output_dir = output_dir
         self.background = background
         self.neural_style_transfer = neural_style_transfer
+        self.perform_blur = perform_blur
         self.mp_drawing = None
         self.mp_selfie_segmentation = None
 
@@ -42,18 +43,22 @@ class Mediapipe():
             condition = cv2.GaussianBlur(np.array(condition, dtype=np.float32), (5, 5), 11)
 
             bg_image = NeuralStyleTransfer().perform(image, self.background) if self.neural_style_transfer else self.background
-            bg_image = cv2.GaussianBlur(cv2.resize(bg_image, image.shape[:2][::-1]), (55, 55), 0)
+            bg_image = cv2.resize(bg_image, (image_width, image_height))
+
+            if self.perform_blur:
+                bg_image = cv2.GaussianBlur(bg_image, (55, 55), 0)
 
             output_image = np.where(condition, image, bg_image)
             cv2.imwrite(self.output_dir + "/" + str(idx) + '.png', output_image)
 
 
 class Deeplabv3():
-    def __init__(self, input_dir, output_dir, background, neural_style_transfer) -> None:
+    def __init__(self, input_dir, output_dir, background, neural_style_transfer, perform_blur) -> None:
         self.input_dir = input_dir
         self.output_dir = output_dir
         self.background = background
         self.neural_style_transfer = neural_style_transfer
+        self.perform_blur = perform_blur
 
     def perform_segmentation(self, ):
         import torch
@@ -87,18 +92,23 @@ class Deeplabv3():
             condition = cv2.GaussianBlur(np.array(condition, dtype=np.float32), (5, 5), 11)
 
             bg_image = NeuralStyleTransfer().perform(image, self.background) if self.neural_style_transfer else self.background
-            bg_image = cv2.GaussianBlur(cv2.resize(bg_image, image.shape[:2][::-1]), (55, 55), 0)
+            bg_image = cv2.resize(bg_image, (image_width, image_height))
+
+            if self.perform_blur:
+                bg_image = cv2.GaussianBlur(bg_image, (55, 55), 0)
 
             output_image = np.where(condition, image, bg_image)
             cv2.imwrite(self.output_dir + "/" + str(idx) + '.png', output_image)
+            torch.cuda.empty_cache()
 
 
 class YOLOv8():
-    def __init__(self, input_dir, output_dir, background, neural_style_transfer) -> None:
+    def __init__(self, input_dir, output_dir, background, neural_style_transfer, perform_blur) -> None:
         self.input_dir = input_dir
         self.output_dir = output_dir
         self.background = background
         self.neural_style_transfer = neural_style_transfer
+        self.perform_blur = perform_blur
 
     def perform_segmentation(self, ):
         from ultralytics import YOLO
@@ -120,23 +130,32 @@ class YOLOv8():
             output = output.masks.masks[0]
 
             output_array = output.cpu().numpy().astype(np.uint8) * 255
-            condition = cv2.resize(output_array, image.shape[:2][::-1])
+            condition = cv2.resize(output_array, (image_width, image_height))
             condition = np.stack((condition,) * 3, axis=-1) > 0.1
             condition = cv2.GaussianBlur(np.array(condition, dtype=np.float32), (5, 5), 11)
 
             bg_image = NeuralStyleTransfer().perform(image, self.background) if self.neural_style_transfer else self.background
-            bg_image = cv2.GaussianBlur(cv2.resize(bg_image, image.shape[:2][::-1]), (55, 55), 0)
+            bg_image = cv2.resize(bg_image, (image_width, image_height))
+
+            if self.perform_blur:
+                bg_image = cv2.GaussianBlur(bg_image, (55, 55), 0)
 
             output_image = np.where(condition, image, bg_image)
             cv2.imwrite(self.output_dir + "/" + str(idx) + '.png', output_image)
 
 
 class Foreground():
-    def __init__(self, input_dir, output_dir, background, mode = 0, neural_style_transfer = False) -> None:
+    def __init__(self,
+                 input_dir,
+                 output_dir,
+                 background, mode = 0,
+                 neural_style_transfer = False,
+                 perform_blur = False) -> None:
         kwargs = {"input_dir" : input_dir,
                   "output_dir" : output_dir,
                   "background" : background,
-                  "neural_style_transfer" : neural_style_transfer}
+                  "neural_style_transfer" : neural_style_transfer,
+                  "perform_blur" : perform_blur}
 
         modes = {
             0: Mediapipe(**kwargs),

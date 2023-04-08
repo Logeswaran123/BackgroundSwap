@@ -18,14 +18,16 @@ def argparser():
     parser.add_argument('-p', "--prompt", required=False,
                                         help="Text prompt to generate background.")
     parser.add_argument('-n', "--nst", required=False, action='store_true', default=False,
-                                        help="Perform Neural Style Transfer")
+                                        help="Perform Neural Style Transfer.")
+    parser.add_argument('-blur', "--blur", required=False, action='store_true', default=False,
+                                        help="Perform Gaussian Blur to Background.")
     return parser
 
 
 def main():
     args = argparser().parse_args()
     background = Background(args.prompt, args.bg).get_background()
-    foreground = Foreground(args.input, args.output, background, args.mode, args.nst)
+    foreground = Foreground(args.input, args.output, background, args.mode, args.nst, args.blur)
     foreground.perform_segmentation()
 
 

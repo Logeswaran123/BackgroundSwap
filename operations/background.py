@@ -37,6 +37,7 @@ class Background():
         print(f"\nGenerating background image using prompt: {self.prompt}\n")
         with autocast("cuda"):
             image = pipe(prompt=self.prompt, height=HEIGHT, width=WIDTH).images[0]
+        torch.cuda.empty_cache()
 
         return np.array(image)
 
