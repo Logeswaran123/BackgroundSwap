@@ -1,5 +1,5 @@
-# [In Progress] The Traveller
-An application that changes the background of a person using a text prompt describing the background.
+# BackgroundSwap
+Easily replace the background of a content image with a background image of user's choice. If user does not have a background image, BackgroundSwap includes a stable diffusion model that can generate a background based on the prompt provided by the user. BackgroundSwap also enables users to apply the style of the background image to the background of the content image.
 
 ## Description :scroll:
 Generate the background of a person with a diffusion model.
@@ -66,3 +66,6 @@ python run.py --input <dir path to input images> --output <dir path to store out
 ## References :page_facing_up:
 * Neural Style Transfer (optimization method) | [Repository](https://github.com/gordicaleksa/pytorch-neural-style-transfer)
 * Ultralytics YOLOv8 | [Documentation](https://docs.ultralytics.com/)
+
+## Contributions
+Contributions to BackgroundSwap are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request. Let's work together to make BackgroundSwap even better!
