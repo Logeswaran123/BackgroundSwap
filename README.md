@@ -70,5 +70,5 @@ python run.py --input <dir path to input images> --output <dir path to store out
 * Neural Style Transfer (optimization method) | [Repository](https://github.com/gordicaleksa/pytorch-neural-style-transfer)
 * Ultralytics YOLOv8 | [Documentation](https://docs.ultralytics.com/)
 
-## Contributions
+## Contributions 👩‍💻
 Contributions to BackgroundSwap are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request. Let's work together to make BackgroundSwap even better!
