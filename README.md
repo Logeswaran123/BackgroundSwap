@@ -22,6 +22,8 @@ Generate the background of a person with a diffusion model.
       ├── neural_style_transfer.py
       ├── utils.py
 ├── run.py
+├── setup.py
+├── requirements.txt
 ```
 
 ## General Requirements :mage_man:
