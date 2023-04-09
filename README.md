@@ -55,4 +55,5 @@ python run.py --input <dir path to input images> --output <dir path to store out
 ** TODO **
 
 ## References :page_facing_up:
-** TODO **
+* Neural Style Transfer (optimization method) | [Repository](https://github.com/gordicaleksa/pytorch-neural-style-transfer)
+* Ultralytics YOLOv8 | [Documentation](https://docs.ultralytics.com/)
