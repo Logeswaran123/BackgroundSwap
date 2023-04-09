@@ -4,7 +4,7 @@ An application that changes the background of a person using a text prompt descr
 ## Description :scroll:
 Generate the background of a person with a diffusion model.
 
-## Directory Structure
+## Directory Structure 📁
 ```
 .
 ├── input
