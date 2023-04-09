@@ -52,7 +52,13 @@ python run.py --input <dir path to input images> --output <dir path to store out
 | --blur | Perform Gaussian Blur to Background | store_true |
 
 ## Results :bar_chart:
-** TODO **
+| Input image | Background image | Output image with Neural Style Transfer |
+|:-------------------------:|:-------------------------:|:-------------------------:|
+|![](https://github.com/Logeswaran123/The-Traveller/blob/main/images/img_1.jpeg)||![](https://github.com/Logeswaran123/The-Traveller/blob/main/images/img_1_nst.png)|
+
+| Input image | Prompt | Output image with background generated using prompt |
+|:-------------------------:|:-------------------------:|:-------------------------:|
+|![](https://github.com/Logeswaran123/The-Traveller/blob/main/images/img_1.jpeg)| "((dim lit)), japanese alleyway with trees on the side, 8k, realistic, detailed, sharp, trending, incredible pixel details" |![](https://github.com/Logeswaran123/The-Traveller/blob/main/images/img_1_nonst.png)|
 
 ## References :page_facing_up:
 * Neural Style Transfer (optimization method) | [Repository](https://github.com/gordicaleksa/pytorch-neural-style-transfer)
