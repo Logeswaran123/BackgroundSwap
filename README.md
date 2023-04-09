@@ -3,6 +3,7 @@
 Easily replace the background of a content image with a background image of user's choice. If user does not have a background image, BackgroundSwap includes a stable diffusion model that can generate a background based on the prompt provided by the user. BackgroundSwap also enables users to apply the style of the background image to the background of the content image.
 
 ## Description :scroll:
+BackgroundSwap changes the background or style of the content image with background image. Three stages are used to realize the output image depending on the modes of usage. Firstly, the user provided background is taken, if not provided, then background image is generated using user provided prompt with Stable Diffusion model. Secondly, mask is created for the content image's background using Mediapipe, Deeplabv3 or YOLOv8 model. Thirdly, depending on user provided argument, the style of background image is applied to background of content image using VGG19 network by guiding the stylized pixels.
 
 ![](https://github.com/Logeswaran123/BackgroundSwap/blob/main/images/flow%20diagram.png)
 
