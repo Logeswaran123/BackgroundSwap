@@ -1,4 +1,4 @@
-# BackgroundSwap
+# 📸 BackgroundSwap 🖼️
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Logeswaran123/The-Traveller/blob/main/LICENSE)<br/><br/>
 Easily replace the background of a content image with a background image of user's choice. If user does not have a background image, BackgroundSwap includes a stable diffusion model that can generate a background based on the prompt provided by the user. BackgroundSwap also enables users to apply the style of the background image to the background of the content image.
 
