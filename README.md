@@ -54,7 +54,7 @@ python run.py --input <dir path to input images> --output <dir path to store out
 ## Results :bar_chart:
 | Input image | Background image | Output image with Neural Style Transfer |
 |:-------------------------:|:-------------------------:|:-------------------------:|
-|![](https://github.com/Logeswaran123/The-Traveller/blob/main/images/img_1.jpeg)||![](https://github.com/Logeswaran123/The-Traveller/blob/main/images/img_1_nst.png)|
+|![](https://github.com/Logeswaran123/The-Traveller/blob/main/images/img_1.jpeg)|![](https://github.com/Logeswaran123/The-Traveller/blob/main/images/bg_1.jpg)|![](https://github.com/Logeswaran123/The-Traveller/blob/main/images/img_1_nst.png)|
 
 | Input image | Prompt | Output image with background generated using prompt |
 |:-------------------------:|:-------------------------:|:-------------------------:|
