@@ -32,6 +32,7 @@ Generate the background of a person with a diffusion model.
 * If blur is set, then the background of the content image will be blurred.
 
 ## Code Requirements :mage_woman:
+Use Python 3.8.13. Setup conda environment, git clone repo and run the below command,
 ```python3
 python setup.py
 ```
