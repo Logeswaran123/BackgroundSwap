@@ -32,10 +32,24 @@ Generate the background of a person with a diffusion model.
 * If blur is set, then the background of the content image will be blurred.
 
 ## Code Requirements :mage_woman:
-** TODO **
+```python3
+python setup.py
+```
 
 ## How to run :running_man:
-** TODO **
+```python3
+python run.py --input <dir path to input images> --output <dir path to store output images> --bg <dir path to background image> --mode <mode of segmentation>
+```
+<b>Arguments:</b><br/>
+| Argument | Description | Value |
+|:--------:|:-----------:|:-----:|
+| --input  | Path to input images directory | String |
+| --output | Path to output images directory | String |
+| --bg | Path to background image file | String |
+| --mode | Mode of segmentation to be used to generate mask | Integer<br/>0 : Mediapipe, 1 : Deeplabv3, 2 : Yolov8 |
+| --prompt | Text prompt to generate background. Used when --bg is not provided | String |
+| --nst | Perform Neural Style Transfer of background | store_true |
+| --blur | Perform Gaussian Blur to Background | store_true |
 
 ## Results :bar_chart:
 ** TODO **
