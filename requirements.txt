@@ -1,0 +1,4 @@
+argparse==1.1
+diffusers==0.3.0
+numpy==1.22.4
+opencv-python==4.6.0.66
