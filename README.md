@@ -5,6 +5,8 @@ Easily replace the background of a content image with a background image of user
 ## Description :scroll:
 Generate the background of a person with a diffusion model.
 
+![](https://github.com/Logeswaran123/BackgroundSwap/blob/main/images/flow%20diagram.png)
+
 ## Directory Structure 📁
 ```
 .
