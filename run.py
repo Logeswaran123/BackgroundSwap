@@ -15,10 +15,10 @@ def argparser():
     parser.add_argument('-m', "--mode", required=False, default=0, type=int, choices=[0, 1, 2],
                                         help="Mode of segmentation to be used to generate mask. \
                                             {0:Mediapipe, 1:Deeplabv3, 2:Yolov8}")
-    parser.add_argument('-p', "--prompt", required=False,
+    parser.add_argument('-p', "--prompt", required=False, type=str,
                                         help="Text prompt to generate background.")
     parser.add_argument('-n', "--nst", required=False, action='store_true', default=False,
-                                        help="Perform Neural Style Transfer.")
+                                        help="Perform Neural Style Transfer of background.")
     parser.add_argument('-blur', "--blur", required=False, action='store_true', default=False,
                                         help="Perform Gaussian Blur to Background.")
     return parser

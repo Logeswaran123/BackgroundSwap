@@ -91,6 +91,7 @@ class Deeplabv3():
             condition[output_array == 15] = 255
             condition = cv2.GaussianBlur(np.array(condition, dtype=np.float32), (5, 5), 11)
 
+            torch.cuda.empty_cache()
             bg_image = NeuralStyleTransfer().perform(image, self.background) if self.neural_style_transfer else self.background
             bg_image = cv2.resize(bg_image, (image_width, image_height))
 

@@ -73,6 +73,7 @@ class NeuralStyleTransfer():
 
         optimizer = torch.optim.Adam((optimizing_img,), lr=1e1)
 
+        torch.cuda.empty_cache()
         for epoch in range(NUM_EPOCHS):
             total_loss, _, _, _ = tuning_step(neural_net,
                                             optimizing_img,

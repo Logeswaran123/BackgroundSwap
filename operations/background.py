@@ -37,6 +37,7 @@ class Background():
         print(f"\nGenerating background image using prompt: {self.prompt}\n")
         with autocast("cuda"):
             image = pipe(prompt=self.prompt, height=HEIGHT, width=WIDTH).images[0]
+        pipe = pipe.to("cpu")
         torch.cuda.empty_cache()
 
         return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
