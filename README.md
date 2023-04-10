@@ -72,3 +72,5 @@ python run.py --input <dir path to input images> --output <dir path to store out
 
 ## Contributions 👩‍💻
 Contributions to BackgroundSwap are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request. Let's work together to make BackgroundSwap even better!
+
+Happy Learning! 😄
