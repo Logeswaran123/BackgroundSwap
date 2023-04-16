@@ -7,6 +7,11 @@ BackgroundSwap changes the background or style of the content image with backgro
 
 ![](https://github.com/Logeswaran123/BackgroundSwap/blob/main/images/flow%20diagram.png)
 
+### How does Neural Style Transfer work
+When an image is passed through a CNN, the image is brokend down to it's feature representations by conv layers. These feature representations can be the edges, lines, or more noticeable semantics like eye, nose. The content representation from the content image can be extracted from these intermediate feature representation. Now, the style representation of the style image is obtained differently. Style, by definition, means the texture, color, or mood. Here, style representation can be obtained by combining the information of the intermediate feature representations from every conv layer of the CNN. This is achieved by gram matrix. A gram matrix is a dot product of feature representation and it's transpose.
+
+Now, to progressively generate a better target image, we have to monitor a loss parameter. The loss parameter in Neural Style Transfer task is the sum of content loss and style loss. The content loss is the MSE of target and content representations. The style loss is the MSE of style representation of target and style representation of style image. The main idea is to lower the loss through gradient descent and backpropagation.
+
 ## Directory Structure 📁
 ```
 .
